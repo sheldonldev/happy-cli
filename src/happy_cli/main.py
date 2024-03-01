@@ -1,5 +1,6 @@
 import os
 import subprocess
+from importlib.metadata import version
 from pathlib import Path
 from typing import Optional
 
@@ -8,12 +9,33 @@ import toml
 import typer
 from rich import print as rprint
 
-app = typer.Typer()
+__version__ = "0.1.2"
+
+
+def version_callback(value: bool):
+    if value:
+        typer.echo(f"Awesome Happy CLI Version: {__version__}")
+        raise typer.Exit()
+
+
+app = typer.Typer(add_completion=False)
+
+
+@app.callback()
+def common(
+    ctx: typer.Context,
+    version: bool = typer.Option(
+        None,
+        "--version",
+        callback=version_callback,
+    ),
+):
+    pass
 
 
 @app.command('info')
 def show_info():
-    rprint("version 0.0.1")
+    rprint("My happy cli.")
 
 
 @app.command("create-project")
