@@ -17,7 +17,7 @@ def version_callback(value: bool):
         rprint(f"Awesome Happy CLI Version: {__info__['project']['version']}")
         raise typer.Exit()
 
-  
+
 app = typer.Typer(add_completion=True)
 
 
