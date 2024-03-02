@@ -1,4 +1,9 @@
 {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+    "editor.lineNumbers": "on",
     "python.envFile": "${workspaceFolder}/.env",
     // testing
     "python.testing.unittestEnabled": false,
@@ -8,7 +13,7 @@
         "tests"
     ],
     // type checking
-    // "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.typeCheckingMode": "basic",
     "mypy.dmypyExecutable": "dmypy",
     "mypy.enabled": true,
     // sort and format
@@ -17,15 +22,6 @@
         "--profile=black",
         "--line-length=100"
     ],
-    "editor.formatOnSave": true,
-    "editor.lineNumbers": "on",
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter",
-        "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": "explicit"
-        }
-    },
     "black-formatter.args": [
         "--line-length=100",
         "--skip-string-normalization"
@@ -61,4 +57,19 @@
     ],
     "cSpell.words": [],
     "git.ignoreLimitWarning": true,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features",
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+    },
+    "[toml]": {
+        "editor.defaultFormatter": "tamasfe.even-better-toml",
+    },
+    "[ignore]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format",
+    }
 }

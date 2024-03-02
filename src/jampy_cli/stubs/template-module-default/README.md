@@ -3,8 +3,7 @@
 ## Development
 
 ```bash
-pip install -e .[dev]
-# then debug using tests
+pip install -e ".[dev]"
 ```
 
 ## Build

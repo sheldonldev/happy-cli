@@ -3,7 +3,7 @@ requires = [ "setuptools",]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "temp_project"
+name = "sub_temp_module"
 version = "0.0.1"
 description = "..."
 readme = "README.md"
@@ -14,19 +14,3 @@ dependencies = []
 name = "Sheldon Lee"
 email = "sheldonlee@outlook.com"
 
-[project.license]
-file = "LICENSE"
-
-[project.optional-dependencies]
-dev = [ "build", "pytest",]
-
-[project.scripts]
-run = "temp_project.main:main"
-
-[tool.setuptools]
-include-package-data = true
-
-[tool.setuptools.packages.find]
-where = [ "src",]
-include = [ "temp_project*",]
-exclude = [ "tests",]

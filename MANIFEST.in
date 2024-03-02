@@ -1,1 +1,1 @@
-recursive-include src/happy_cli/stubs *
+recursive-include src/jampy_cli/stubs *
