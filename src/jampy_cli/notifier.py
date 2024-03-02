@@ -1,7 +1,5 @@
 from typing import Callable
 
-from rich import print as rprint
-
 
 class Notifier:
     @staticmethod

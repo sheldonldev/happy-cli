@@ -5,7 +5,7 @@ from pathlib import Path
 from typer.testing import CliRunner
 
 from jampy_cli import app
-from jampy_cli.common_utils import get_cwd
+from jampy_cli.common_utils import get_absolute_cwd
 
 runner = CliRunner()
 
@@ -35,7 +35,7 @@ def test_create_project():
         shutil.rmtree(project_dir)
 
     name = "temp_project"
-    project_dir = Path(f"{get_cwd()}/{name}")
+    project_dir = Path(f"{get_absolute_cwd()}/{name}")
     if project_dir.exists():
         shutil.rmtree(project_dir)
 
@@ -80,7 +80,7 @@ def test_sync_settings():
         os.remove(backups[0])
 
     name = "temp_project"
-    project_dir = Path(f"{get_cwd()}/{name}")
+    project_dir = Path(f"{get_absolute_cwd()}/{name}")
     if project_dir.exists():
         shutil.rmtree(project_dir)
     result = runner.invoke(app, ["project", "sync-settings"])

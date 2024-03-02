@@ -7,7 +7,7 @@ import toml
 import typer
 from rich import print as rprint
 
-from .common_utils import parse_name_to_path
+from .common_utils import parse_name_to_absolute_path
 from .config import Config
 from .notifier import Notifier
 
@@ -42,7 +42,7 @@ def create(
 ) -> None:
     """Create module."""
 
-    name, module_dir = parse_name_to_path(
+    name, module_dir = parse_name_to_absolute_path(
         module_path, postprocess_fn=lambda x: inflection.underscore(x.strip())
     )
 

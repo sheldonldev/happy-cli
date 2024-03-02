@@ -52,7 +52,7 @@ from pathlib import Path
 from typer.testing import CliRunner
 
 from jampy_cli import app
-from jampy_cli.common_utils import get_cwd
+from jampy_cli.common_utils import get_absolute_cwd
 
 runner = CliRunner()
 
@@ -82,7 +82,7 @@ def test_create_module():
         shutil.rmtree(module_dir)
 
     name = "temp_module"
-    module_dir = Path(f"{get_cwd()}/{name}")
+    module_dir = Path(f"{get_absolute_cwd()}/{name}")
     if module_dir.exists():
         shutil.rmtree(module_dir)
 

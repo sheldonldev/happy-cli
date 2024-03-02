@@ -1,6 +1,4 @@
-import os
 import shutil
-from enum import StrEnum
 from pathlib import Path
 from typing import Annotated, Optional
 
@@ -9,13 +7,9 @@ import toml
 import typer
 from rich import print as rprint
 
-from .common_utils import get_cwd, get_datetime, parse_name_to_path
+from .common_utils import get_absolute_cwd, get_datetime, parse_name_to_absolute_path
 from .config import Config
 from .notifier import Notifier
-
-
-class ProjectType(StrEnum):
-    DEFAULT = 'default'
 
 
 def create_default_project(
@@ -62,7 +56,7 @@ def create(
 ):
     """Create project."""
 
-    name, project_dir = parse_name_to_path(
+    name, project_dir = parse_name_to_absolute_path(
         project_path, postprocess_fn=lambda x: inflection.underscore(x.strip())
     )
 
@@ -91,10 +85,10 @@ def sync_settings(
     if project_path is None:
         setting_path = '.vscode/settings.json'
     else:
-        name, project_dir = parse_name_to_path(project_path)
+        name, project_dir = parse_name_to_absolute_path(project_path)
         # TODO:
         pass
-    dst_path = get_cwd().joinpath(setting_path)
+    dst_path = get_absolute_cwd().joinpath(setting_path)
     if not dst_path.exists():
         Notifier.not_exists(rprint, str(dst_path))
         Notifier.exited(rprint)
