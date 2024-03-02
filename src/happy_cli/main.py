@@ -10,15 +10,14 @@ from rich import print as rprint
 from typing_extensions import Annotated
 
 __info__ = toml.loads(Path(__file__).parent.parent.parent.joinpath('pyproject.toml').read_text())
-__version__ = __info__['project']['version']
 
 
 def version_callback(value: bool):
     if value:
-        rprint(f"Awesome Happy CLI Version: {__version__}")
+        rprint(f"Awesome Happy CLI Version: {__info__['project']['version']}")
         raise typer.Exit()
 
-
+  
 app = typer.Typer(add_completion=True)
 
 
