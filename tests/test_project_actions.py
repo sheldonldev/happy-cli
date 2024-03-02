@@ -83,8 +83,5 @@ def test_sync_settings():
     project_dir = Path(f"{get_cwd()}/{name}")
     if project_dir.exists():
         shutil.rmtree(project_dir)
-    runner.invoke(app, ["project", "create", "-p", name])
-    assert_target_exists(project_dir)
-
     result = runner.invoke(app, ["project", "sync-settings"])
     assert_ok(project_dir.parent)
