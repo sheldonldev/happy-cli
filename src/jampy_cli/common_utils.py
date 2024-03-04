@@ -1,7 +1,8 @@
+import importlib.metadata
 import os
 from datetime import datetime
 from pathlib import Path
-from typing import Callable, Optional, Tuple
+from typing import Callable, Dict, Optional, Tuple
 
 
 def parse_name_to_absolute_path(
@@ -31,3 +32,11 @@ def get_datetime(format: str = '%Y%m%d_%H%M%S', utc: bool = True) -> str:
         return f'{datetime.utcnow().strftime(format)}_UTC'
     else:
         return f'{datetime.now().strftime(format)}'
+
+
+def get_package_info(package_name: str) -> Dict:
+    try:
+        metadata = importlib.metadata.metadata(package_name)
+        return metadata.json
+    except importlib.metadata.PackageNotFoundError as e:
+        raise e

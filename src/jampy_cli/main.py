@@ -6,14 +6,14 @@ from rich import print as rprint
 from typing_extensions import Annotated
 
 from . import module_actions, project_actions
-from .config import Config
+from .common_utils import get_package_info
 
-__info__ = toml.loads(Config.PROJECT_ROOT.joinpath('pyproject.toml').read_text())
+__info__ = get_package_info('jampy_cli')
 
 
 def version_callback(value: bool):
     if value:
-        rprint(f"Awesome Jampy CLI Version: {__info__['project']['version']}")
+        rprint(f"Awesome Jampy CLI Version: {__info__['Version']}")
         raise typer.Exit()
 
 
