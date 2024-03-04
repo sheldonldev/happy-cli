@@ -57,7 +57,7 @@ def create(
     """Create project."""
 
     name, project_dir = parse_name_to_absolute_path(
-        project_path, postprocess_fn=lambda x: inflection.underscore(x.strip())
+        project_path, name_process_fn=lambda x: inflection.underscore(x.strip())
     )
 
     if project_dir.exists():

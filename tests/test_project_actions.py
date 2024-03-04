@@ -2,6 +2,7 @@ import os
 import shutil
 from pathlib import Path
 
+from inflection import underscore
 from typer.testing import CliRunner
 
 from jampy_cli import app
@@ -34,8 +35,8 @@ def test_create_project():
         assert 'already exists' in result.stdout.lower()
         shutil.rmtree(project_dir)
 
-    name = "temp_project"
-    project_dir = Path(f"{get_absolute_cwd()}/{name}")
+    name = "temp-project"
+    project_dir = Path(f"{get_absolute_cwd()}/{underscore(name)}")
     if project_dir.exists():
         shutil.rmtree(project_dir)
 
@@ -61,13 +62,19 @@ def test_create_project():
     result = runner.invoke(app, ["project", "create", "-p", name])
     assert_exit_if_duplicated(project_dir)
 
-    sub_name = 'sub_temp_project'
-    sub_project_dir = project_dir.joinpath(sub_name)
+    name = '../temp-project'
+    project_dir = Path(f"{get_absolute_cwd().parent}/{underscore(Path(name).name)}")
     assert_target_not_exists(project_dir)
-    assert_target_not_exists(sub_project_dir)
-    result = runner.invoke(app, ["project", "create", "-p", f"{name}/{sub_name}"])
-    assert_ok(sub_project_dir)
-    shutil.rmtree(project_dir)
+    result = runner.invoke(app, ["project", "create", "-p", name])
+    assert_ok(project_dir)
+
+    pname, name = 'temp-dir', 'temp-project'
+    project_dir = Path(f"{get_absolute_cwd()}/{pname}/{underscore(name)}")
+    assert_target_not_exists(Path(f"{get_absolute_cwd()}/{pname}"))
+    assert_target_not_exists(project_dir)
+    result = runner.invoke(app, ["project", "create", "-p", f"{pname}/{name}"])
+    assert_ok(project_dir)
+    shutil.rmtree(Path(f"{get_absolute_cwd()}/{pname}"))
 
 
 def test_sync_settings():

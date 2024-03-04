@@ -1,5 +1,6 @@
 import importlib.metadata
 import os
+import posixpath
 from datetime import datetime
 from pathlib import Path
 from typing import Callable, Dict, Optional, Tuple
@@ -19,7 +20,7 @@ def parse_name_to_absolute_path(
     elif parent == '.':
         absolute_path = get_absolute_cwd().joinpath(name)
     else:
-        absolute_path = get_absolute_cwd().joinpath(parent).joinpath(name)
+        absolute_path = Path(posixpath.normpath(get_absolute_cwd().joinpath(parent).joinpath(name)))
     return name, absolute_path
 
 
