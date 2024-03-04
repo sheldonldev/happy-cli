@@ -13,7 +13,7 @@ __info__ = get_package_info('jampy_cli')
 
 def version_callback(value: bool):
     if value:
-        rprint(f"Awesome Jampy CLI Version: {__info__['Version']}")
+        rprint(f"Awesome Jampy CLI Version: {__info__['version']}")
         raise typer.Exit()
 
 
