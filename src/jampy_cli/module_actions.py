@@ -5,9 +5,9 @@ from typing import Annotated, Optional
 import inflection
 import toml
 import typer
+from jampy_utils.path import parse_path_str
 from rich import print as rprint
 
-from .common_utils import parse_path_str
 from .config import Config
 from .notifier import Notifier
 

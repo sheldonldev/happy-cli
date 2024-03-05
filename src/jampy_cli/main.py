@@ -2,11 +2,11 @@ from typing import Optional
 
 import toml
 import typer
+from jampy_utils.package import get_package_info
 from rich import print as rprint
 from typing_extensions import Annotated
 
 from . import module_actions, project_actions
-from .common_utils import get_package_info
 
 __info__ = get_package_info('jampy_cli')
 
