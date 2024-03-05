@@ -76,6 +76,16 @@ def test_create_project():
     assert_ok(project_dir)
     shutil.rmtree(Path(f"{get_absolute_cwd()}/{pname}"))
 
+    pname, name = 'temp-dir', 'temp-project'
+    pdir = Path(f"{get_absolute_cwd()}/{pname}")
+    project_dir = Path(f"{pdir}/{underscore(name)}")
+    if pdir.exists():
+        shutil.rmtree(pdir)
+    assert_target_not_exists(pdir)
+    result = runner.invoke(app, ["project", "create", "-p", f"{pname}/{name}"])
+    assert_ok(project_dir)
+    shutil.rmtree(pdir)
+
 
 def test_sync_settings():
     def assert_ok(project_dir: Path):

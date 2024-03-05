@@ -7,7 +7,7 @@ import toml
 import typer
 from rich import print as rprint
 
-from .common_utils import get_absolute_cwd, get_datetime, parse_name_to_absolute_path
+from .common_utils import get_absolute_cwd, get_datetime, parse_path_str
 from .config import Config
 from .notifier import Notifier
 
@@ -34,7 +34,9 @@ def update_vscode_settings(dst_path: Path):
     # backup th old
     shutil.copyfile(
         dst_path,
-        dst_path.parent.joinpath(f"{dst_path.stem}_back{get_datetime()}{dst_path.suffix}"),
+        dst_path.parent.joinpath(
+            f"{dst_path.stem}_back{get_datetime()}{dst_path.suffix}"
+        ),
     )
     shutil.copyfile(src_path, dst_path)
 
@@ -56,7 +58,7 @@ def create(
 ):
     """Create project."""
 
-    name, project_dir = parse_name_to_absolute_path(
+    name, project_dir = parse_path_str(
         project_path, name_process_fn=lambda x: inflection.underscore(x.strip())
     )
 
@@ -78,14 +80,15 @@ def create(
 @app.command('sync-settings')
 def sync_settings(
     project_path: Annotated[
-        Optional[str], typer.Option('--path', '-p', help='Path to project root.')
+        Optional[str],
+        typer.Option('--path', '-p', help='Path to project root.'),
     ] = None
 ):
     """Sync vscode settings to the latest template."""
     if project_path is None:
         setting_path = '.vscode/settings.json'
     else:
-        name, project_dir = parse_name_to_absolute_path(project_path)
+        name, project_dir = parse_path_str(project_path)
         # TODO:
         pass
     dst_path = get_absolute_cwd().joinpath(setting_path)

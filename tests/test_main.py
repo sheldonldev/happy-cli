@@ -22,7 +22,7 @@ def test_help():
 
 
 def test_version():
-    result = runner.invoke(app, ["-version"])
+    result = runner.invoke(app, ["--version"])
     assert result.exit_code == 0
     assert "version" in result.stdout.lower()
 

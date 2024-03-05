@@ -6,15 +6,14 @@ from pathlib import Path
 from typing import Callable, Dict, Optional, Tuple
 
 
-def parse_name_to_absolute_path(
-    raw_name: str,
+def parse_path_str(
+    raw_path: str,
     name_process_fn: Optional[Callable] = None,
-    **kwargs,
 ) -> Tuple[str, Path]:
-    parsed_name = Path(raw_name)
-    name, parent, root = parsed_name.name, str(parsed_name.parent), parsed_name.root
+    parsed_path = Path(raw_path).expanduser()
+    name, parent, root = parsed_path.name, str(parsed_path.parent), parsed_path.root
     if name_process_fn is not None:
-        name = name_process_fn(name, **kwargs)
+        name = name_process_fn(name)
     if root == '/':
         absolute_path = Path(parent).joinpath(name)
     elif parent == '.':
