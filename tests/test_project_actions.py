@@ -3,10 +3,10 @@ import shutil
 from pathlib import Path
 
 from inflection import underscore
+from jampy_utils.path import get_absolute_cwd_path
 from typer.testing import CliRunner
 
 from jampy_cli import app
-from jampy_cli.common_utils import get_absolute_cwd
 
 runner = CliRunner()
 
@@ -36,7 +36,7 @@ def test_create_project():
         shutil.rmtree(project_dir)
 
     name = "temp-project"
-    project_dir = Path(f"{get_absolute_cwd()}/{underscore(name)}")
+    project_dir = Path(f"{get_absolute_cwd_path()}/{underscore(name)}")
     if project_dir.exists():
         shutil.rmtree(project_dir)
 
@@ -64,22 +64,22 @@ def test_create_project():
 
     name = '../temp-project'
     project_dir = Path(
-        f"{get_absolute_cwd().parent}/{underscore(Path(name).name)}"
+        f"{get_absolute_cwd_path().parent}/{underscore(Path(name).name)}"
     )
     assert_target_not_exists(project_dir)
     result = runner.invoke(app, ["project", "create", "-p", name])
     assert_ok(project_dir)
 
     pname, name = 'temp-dir', 'temp-project'
-    project_dir = Path(f"{get_absolute_cwd()}/{pname}/{underscore(name)}")
-    assert_target_not_exists(Path(f"{get_absolute_cwd()}/{pname}"))
+    project_dir = Path(f"{get_absolute_cwd_path()}/{pname}/{underscore(name)}")
+    assert_target_not_exists(Path(f"{get_absolute_cwd_path()}/{pname}"))
     assert_target_not_exists(project_dir)
     result = runner.invoke(app, ["project", "create", "-p", f"{pname}/{name}"])
     assert_ok(project_dir)
-    shutil.rmtree(Path(f"{get_absolute_cwd()}/{pname}"))
+    shutil.rmtree(Path(f"{get_absolute_cwd_path()}/{pname}"))
 
     pname, name = 'temp-dir', 'temp-project'
-    pdir = Path(f"{get_absolute_cwd()}/{pname}")
+    pdir = Path(f"{get_absolute_cwd_path()}/{pname}")
     project_dir = Path(f"{pdir}/{underscore(name)}")
     if pdir.exists():
         shutil.rmtree(pdir)
@@ -99,7 +99,7 @@ def test_sync_settings():
         shutil.move(backups[0], setting_dir.joinpath('settings.json'))
 
     name = "temp_project"
-    project_dir = Path(f"{get_absolute_cwd()}/{name}")
+    project_dir = Path(f"{get_absolute_cwd_path()}/{name}")
     if project_dir.exists():
         shutil.rmtree(project_dir)
     result = runner.invoke(app, ["project", "sync-settings"])

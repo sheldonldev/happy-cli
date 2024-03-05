@@ -5,9 +5,10 @@ from typing import Annotated, Optional
 import inflection
 import toml
 import typer
+from jampy_utils.datetime import format_now
+from jampy_utils.path import get_absolute_cwd_path, parse_path_str
 from rich import print as rprint
 
-from .common_utils import format_now, get_absolute_cwd, parse_path_str
 from .config import Config
 from .notifier import Notifier
 
@@ -91,7 +92,7 @@ def sync_settings(
         name, project_dir = parse_path_str(project_path)
         # TODO:
         pass
-    dst_path = get_absolute_cwd().joinpath(setting_path)
+    dst_path = get_absolute_cwd_path().joinpath(setting_path)
     if not dst_path.exists():
         Notifier.not_exists(rprint, str(dst_path))
         Notifier.exited(rprint)
