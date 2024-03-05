@@ -15,7 +15,7 @@ jam -h
 pip install -e ".[dev]"
 ```
 
-## Build
+## Build Package
 
 ```sh
 python -m pip install --upgrade build
