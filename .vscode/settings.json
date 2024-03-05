@@ -8,10 +8,7 @@
     // testing
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "python.testing.pytestArgs": [
-        "-s",
-        "tests"
-    ],
+    "python.testing.pytestArgs": [],
     // type checking
     "python.analysis.typeCheckingMode": "basic",
     "mypy.dmypyExecutable": "dmypy",
