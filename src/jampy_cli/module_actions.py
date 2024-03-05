@@ -24,10 +24,10 @@ def create_default_module(
 
     def modify_init():
         template_dir.joinpath('src/__init__.py').write_text(
-            f'from .main import main as {name}\n'
+            f'from .main import main as {name}\n\n__all__ = ["{name}"]'
         )
         template_dir.joinpath('__init__.py').write_text(
-            f'from .src import {name}\n'
+            f'from .src import {name}\n\n__all__ = ["{name}"]'
         )
 
     template_dir = Config.STUBS_ROOT.joinpath('template-module-default')
