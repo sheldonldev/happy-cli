@@ -63,7 +63,9 @@ def test_create_project():
     assert_exit_if_duplicated(project_dir)
 
     name = '../temp-project'
-    project_dir = Path(f"{get_absolute_cwd().parent}/{underscore(Path(name).name)}")
+    project_dir = Path(
+        f"{get_absolute_cwd().parent}/{underscore(Path(name).name)}"
+    )
     assert_target_not_exists(project_dir)
     result = runner.invoke(app, ["project", "create", "-p", name])
     assert_ok(project_dir)
@@ -94,7 +96,7 @@ def test_sync_settings():
         assert_target_exists(setting_dir.joinpath('settings.json'))
         backups = list(setting_dir.glob('settings_back*'))
         assert len(backups) == 1
-        os.remove(backups[0])
+        shutil.move(backups[0], setting_dir.joinpath('settings.json'))
 
     name = "temp_project"
     project_dir = Path(f"{get_absolute_cwd()}/{name}")

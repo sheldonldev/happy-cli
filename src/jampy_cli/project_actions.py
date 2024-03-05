@@ -7,7 +7,7 @@ import toml
 import typer
 from rich import print as rprint
 
-from .common_utils import get_absolute_cwd, get_datetime, parse_path_str
+from .common_utils import format_datetime, get_absolute_cwd, parse_path_str
 from .config import Config
 from .notifier import Notifier
 
@@ -35,7 +35,7 @@ def update_vscode_settings(dst_path: Path):
     shutil.copyfile(
         dst_path,
         dst_path.parent.joinpath(
-            f"{dst_path.stem}_back{get_datetime()}{dst_path.suffix}"
+            f"{dst_path.stem}_back{format_datetime()}{dst_path.suffix}"
         ),
     )
     shutil.copyfile(src_path, dst_path)
