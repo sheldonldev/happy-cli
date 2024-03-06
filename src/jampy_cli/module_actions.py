@@ -5,7 +5,7 @@ from typing import Annotated, Optional
 import inflection
 import toml
 import typer
-from jampy_utils.path import parse_path_str
+from jampy_util.path import parse_path_str
 from rich import print as rprint
 
 from .config import Config

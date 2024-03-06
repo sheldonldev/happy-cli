@@ -2,7 +2,7 @@ import shutil
 from pathlib import Path
 
 from inflection import underscore
-from jampy_utils.path import get_absolute_cwd_path
+from jampy_util.path import get_absolute_cwd_path
 from typer.testing import CliRunner
 
 from jampy_cli import app

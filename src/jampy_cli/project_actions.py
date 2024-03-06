@@ -5,8 +5,8 @@ from typing import Annotated, Optional
 import inflection
 import toml
 import typer
-from jampy_utils.datetime import format_now
-from jampy_utils.path import get_absolute_cwd_path, parse_path_str
+from jampy_util.datetime import format_now
+from jampy_util.path import get_absolute_cwd_path, parse_path_str
 from rich import print as rprint
 
 from .config import Config

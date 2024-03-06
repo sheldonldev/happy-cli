@@ -2,13 +2,13 @@ from typing import Optional
 
 import toml
 import typer
-from jampy_utils.package import get_package_info
+from jampy_util import package
 from rich import print as rprint
 from typing_extensions import Annotated
 
 from . import module_actions, project_actions
 
-__info__ = get_package_info('jampy_cli')
+__info__ = package.get_info('jampy_cli')
 
 
 def version_callback(value: bool):
