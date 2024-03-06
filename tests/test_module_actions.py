@@ -62,21 +62,19 @@ def test_create_module():
     assert_exit_if_duplicated(module_dir)
 
     name = '../temp-module'
-    module_dir = Path(
-        f"{get_absolute_cwd_path().parent}/{underscore(Path(name).name)}"
-    )
+    module_dir = Path(f"{get_absolute_cwd_path().parent}/{underscore(Path(name).name)}")
     if module_dir.exists():
         shutil.rmtree(module_dir)
     assert_target_not_exists(module_dir)
     result = runner.invoke(app, ["module", "create", "-p", name])
     assert_ok(module_dir)
 
-    pname, name = 'temp-dir', 'temp-module'
-    pdir = Path(f"{get_absolute_cwd_path()}/{pname}")
-    module_dir = Path(f"{pdir}/{underscore(name)}")
-    if pdir.exists():
-        shutil.rmtree(pdir)
-    assert_target_not_exists(pdir)
-    result = runner.invoke(app, ["module", "create", "-p", f"{pname}/{name}"])
+    parent_name, name = 'temp-dir', 'temp-module'
+    parent_dir = Path(f"{get_absolute_cwd_path()}/{parent_name}")
+    module_dir = Path(f"{parent_dir}/{underscore(name)}")
+    if parent_dir.exists():
+        shutil.rmtree(parent_dir)
+    assert_target_not_exists(parent_dir)
+    result = runner.invoke(app, ["module", "create", "-p", f"{parent_name}/{name}"])
     assert_ok(module_dir)
-    shutil.rmtree(pdir)
+    shutil.rmtree(parent_dir)

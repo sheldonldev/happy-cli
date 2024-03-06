@@ -1,2 +1,4 @@
 #!/bin/bash
-pip install --find-links="./wheels" jampy_utils
+python scripts/update_wheels.py
+pip install --find-links="./wheels" jampy_util
+pip install --find-links="./wheels" jampy_util_intelligence

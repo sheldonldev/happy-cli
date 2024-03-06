@@ -18,6 +18,7 @@ def assert_target_exists(target: Path):
     assert target.exists() is True
 
 
+# TODO: optimization with fixture
 def test_create_project():
     def assert_ok(project_dir: Path):
         assert result.exit_code == 0
@@ -69,23 +70,29 @@ def test_create_project():
     result = runner.invoke(app, ["project", "create", "-p", name])
     assert_ok(project_dir)
 
-    pname, name = 'temp-dir', 'temp-project'
-    project_dir = Path(f"{get_absolute_cwd_path()}/{pname}/{underscore(name)}")
-    assert_target_not_exists(Path(f"{get_absolute_cwd_path()}/{pname}"))
+    parent_name, name = 'temp-dir', 'temp-project'
+    project_dir = Path(
+        f"{get_absolute_cwd_path()}/{parent_name}/{underscore(name)}"
+    )
+    assert_target_not_exists(Path(f"{get_absolute_cwd_path()}/{parent_name}"))
     assert_target_not_exists(project_dir)
-    result = runner.invoke(app, ["project", "create", "-p", f"{pname}/{name}"])
+    result = runner.invoke(
+        app, ["project", "create", "-p", f"{parent_name}/{name}"]
+    )
     assert_ok(project_dir)
-    shutil.rmtree(Path(f"{get_absolute_cwd_path()}/{pname}"))
+    shutil.rmtree(Path(f"{get_absolute_cwd_path()}/{parent_name}"))
 
-    pname, name = 'temp-dir', 'temp-project'
-    pdir = Path(f"{get_absolute_cwd_path()}/{pname}")
-    project_dir = Path(f"{pdir}/{underscore(name)}")
-    if pdir.exists():
-        shutil.rmtree(pdir)
-    assert_target_not_exists(pdir)
-    result = runner.invoke(app, ["project", "create", "-p", f"{pname}/{name}"])
+    parent_name, name = 'temp-dir', 'temp-project'
+    parent_dir = Path(f"{get_absolute_cwd_path()}/{parent_name}")
+    project_dir = Path(f"{parent_dir}/{underscore(name)}")
+    if parent_dir.exists():
+        shutil.rmtree(parent_dir)
+    assert_target_not_exists(parent_dir)
+    result = runner.invoke(
+        app, ["project", "create", "-p", f"{parent_name}/{name}"]
+    )
     assert_ok(project_dir)
-    shutil.rmtree(pdir)
+    shutil.rmtree(parent_dir)
 
 
 def test_sync_settings():

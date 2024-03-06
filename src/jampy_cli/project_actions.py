@@ -6,8 +6,8 @@ import inflection
 import toml
 import typer
 from jampy_util.datetime import format_now
-from jampy_util.path import get_absolute_cwd_path, parse_path_str
-from rich import print as rprint
+from jampy_util.path import get_absolute_cwd_path, normalize_path
+from rich import print
 
 from .config import Config
 from .notifier import Notifier
@@ -59,22 +59,22 @@ def create(
 ):
     """Create project."""
 
-    name, project_dir = parse_path_str(
+    name, project_dir = normalize_path(
         project_path, name_process_fn=lambda x: inflection.underscore(x.strip())
     )
 
     if project_dir.exists():
-        Notifier.exists(rprint, str(project_dir))
-        Notifier.exited(rprint)
+        Notifier.exists(print, str(project_dir))
+        Notifier.exited(print)
         return
 
     if project_type is None:
         create_default_project(name, project_dir)
-        Notifier.create_success(rprint, str(project_dir))
-        Notifier.exited(rprint)
+        Notifier.create_success(print, str(project_dir))
+        Notifier.exited(print)
     else:
         # TODO
-        Notifier.exited(rprint)
+        Notifier.exited(print)
 
 
 @app.command('ss', help='Alias for sync-settings')
@@ -89,14 +89,14 @@ def sync_settings(
     if project_path is None:
         setting_path = '.vscode/settings.json'
     else:
-        name, project_dir = parse_path_str(project_path)
+        name, project_dir = normalize_path(project_path)
         # TODO:
         pass
     dst_path = get_absolute_cwd_path().joinpath(setting_path)
     if not dst_path.exists():
-        Notifier.not_exists(rprint, str(dst_path))
-        Notifier.exited(rprint)
+        Notifier.not_exists(print, str(dst_path))
+        Notifier.exited(print)
     else:
         update_vscode_settings(dst_path)
-        Notifier.update_success(rprint, str(dst_path))
-        Notifier.exited(rprint)
+        Notifier.update_success(print, str(dst_path))
+        Notifier.exited(print)

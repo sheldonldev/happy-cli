@@ -3,17 +3,17 @@ from typing import Optional
 import toml
 import typer
 from jampy_util import package
-from rich import print as rprint
+from rich import print
 from typing_extensions import Annotated
 
 from . import module_actions, project_actions
 
-__info__ = package.get_info('jampy_cli')
+__info__ = package.get_package_info('jampy_cli')
 
 
 def version_callback(value: bool):
     if value:
-        rprint(f"Awesome Jampy CLI Version: {__info__['version']}")
+        print(f"Awesome Jampy CLI Version: {__info__['version']}")
         raise typer.Exit()
 
 
@@ -39,7 +39,7 @@ def call_version(
 @app.command('info')
 def show_info():
     """Show the project toml."""
-    rprint(toml.dumps(__info__))
+    print(toml.dumps(__info__))
 
 
 def gen_help(message):

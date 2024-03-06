@@ -5,8 +5,8 @@ from typing import Annotated, Optional
 import inflection
 import toml
 import typer
-from jampy_util.path import parse_path_str
-from rich import print as rprint
+from jampy_util.path import normalize_path
+from rich import print as print
 
 from .config import Config
 from .notifier import Notifier
@@ -52,19 +52,19 @@ def create(
 ) -> None:
     """Create module."""
 
-    name, module_dir = parse_path_str(
+    name, module_dir = normalize_path(
         module_path, name_process_fn=lambda x: inflection.underscore(x.strip())
     )
 
     if module_dir.exists():
-        Notifier.exists(rprint, str(module_dir))
-        Notifier.exited(rprint)
+        Notifier.exists(print, str(module_dir))
+        Notifier.exited(print)
         return
 
     if module_type is None:
         create_default_module(name, module_dir)
-        Notifier.create_success(rprint, str(module_dir))
-        Notifier.exited(rprint)
+        Notifier.create_success(print, str(module_dir))
+        Notifier.exited(print)
     else:
         # TODO
-        Notifier.exited(rprint)
+        Notifier.exited(print)

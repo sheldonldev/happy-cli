@@ -9,7 +9,8 @@
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     "python.testing.pytestArgs": [
-        "-s",
+        "-v",
+        "--capture=no",
         "tests"
     ],
     // type checking
