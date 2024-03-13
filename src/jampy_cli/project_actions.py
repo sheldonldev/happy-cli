@@ -17,14 +17,19 @@ def create_default_project(
     name: str,
     project_dir: Path,
 ) -> None:
+    def modify_toml():
+        toml_str = project_dir.joinpath('pyproject.toml').read_text()
+        toml_cfg = toml.loads(toml_str)
+        toml_cfg['project']['name'] = name
+        toml_cfg['project']['scripts'] = {'run': f'{name}.main:main'}
+        toml_cfg['tool']['setuptools']['packages']['find']['include'] = [
+            f'{name}*'
+        ]
+        project_dir.joinpath('pyproject.toml').write_text(toml.dumps(toml_cfg))
+
     template_dir = Config.STUBS_ROOT.joinpath('template-project-default')
-    toml_str = template_dir.joinpath('pyproject.toml').read_text()
-    toml_cfg = toml.loads(toml_str)
-    toml_cfg['project']['name'] = name
-    toml_cfg['project']['scripts'] = {'run': f'{name}.main:main'}
-    toml_cfg['tool']['setuptools']['packages']['find']['include'] = [f'{name}*']
-    template_dir.joinpath('pyproject.toml').write_text(toml.dumps(toml_cfg))
     shutil.copytree(template_dir, project_dir)
+    modify_toml()
     shutil.move(project_dir / 'src' / 'name', project_dir / 'src' / name)
 
 
