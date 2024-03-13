@@ -17,23 +17,23 @@ def create_default_module(
     module_dir: Path,
 ) -> None:
     def modify_toml():
-        toml_str = template_dir.joinpath('pyproject.toml').read_text()
+        toml_str = module_dir.joinpath('pyproject.toml').read_text()
         toml_cfg = toml.loads(toml_str)
         toml_cfg['project']['name'] = name
-        template_dir.joinpath('pyproject.toml').write_text(toml.dumps(toml_cfg))
+        module_dir.joinpath('pyproject.toml').write_text(toml.dumps(toml_cfg))
 
     def modify_init():
-        template_dir.joinpath('src/__init__.py').write_text(
-            f'from .main import main as {name}\n\n__all__ = ["{name}"]'
+        module_dir.joinpath('src/__init__.py').write_text(
+            f'from .main import main as {name}\n\n__all__ = ["{name}"]\n'
         )
-        template_dir.joinpath('__init__.py').write_text(
-            f'from .src import {name}\n\n__all__ = ["{name}"]'
+        module_dir.joinpath('__init__.py').write_text(
+            f'from .src import {name}\n\n__all__ = ["{name}"]\n'
         )
 
     template_dir = Config.STUBS_ROOT.joinpath('template-module-default')
+    shutil.copytree(template_dir, module_dir)
     modify_toml()
     modify_init()
-    shutil.copytree(template_dir, module_dir)
 
 
 app = typer.Typer()
