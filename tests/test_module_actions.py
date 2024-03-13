@@ -2,8 +2,8 @@ import shutil
 from pathlib import Path
 
 from inflection import underscore
-from jampy_util.path import get_absolute_cwd_path
 from typer.testing import CliRunner
+from util_common.path import get_absolute_cwd_path
 
 from jampy_cli import app
 
@@ -62,7 +62,9 @@ def test_create_module():
     assert_exit_if_duplicated(module_dir)
 
     name = '../temp-module'
-    module_dir = Path(f"{get_absolute_cwd_path().parent}/{underscore(Path(name).name)}")
+    module_dir = Path(
+        f"{get_absolute_cwd_path().parent}/{underscore(Path(name).name)}"
+    )
     if module_dir.exists():
         shutil.rmtree(module_dir)
     assert_target_not_exists(module_dir)
@@ -75,6 +77,8 @@ def test_create_module():
     if parent_dir.exists():
         shutil.rmtree(parent_dir)
     assert_target_not_exists(parent_dir)
-    result = runner.invoke(app, ["module", "create", "-p", f"{parent_name}/{name}"])
+    result = runner.invoke(
+        app, ["module", "create", "-p", f"{parent_name}/{name}"]
+    )
     assert_ok(module_dir)
     shutil.rmtree(parent_dir)

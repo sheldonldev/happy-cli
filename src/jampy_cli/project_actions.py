@@ -5,9 +5,9 @@ from typing import Annotated, Optional
 import inflection
 import toml
 import typer
-from jampy_util.datetime import format_now
-from jampy_util.path import get_absolute_cwd_path, normalize_path
 from rich import print
+from util_common.datetime import format_now
+from util_common.path import get_absolute_cwd_path, normalize_path
 
 from .config import Config
 from .notifier import Notifier

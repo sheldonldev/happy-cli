@@ -2,9 +2,9 @@ from typing import Optional
 
 import toml
 import typer
-from jampy_util import package
 from rich import print
 from typing_extensions import Annotated
+from util_common import package
 
 from . import module_actions, project_actions
 

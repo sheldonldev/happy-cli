@@ -10,8 +10,7 @@
     "python.testing.pytestEnabled": true,
     "python.testing.pytestArgs": [
         "--collect-only",
-        "--rootdir",
-        "/home/sheldon/repos/jampy_cli"
+        "tests"
     ],
     // type checking
     "python.analysis.typeCheckingMode": "basic",

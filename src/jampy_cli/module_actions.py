@@ -5,8 +5,8 @@ from typing import Annotated, Optional
 import inflection
 import toml
 import typer
-from jampy_util.path import normalize_path
 from rich import print as print
+from util_common.path import normalize_path
 
 from .config import Config
 from .notifier import Notifier
