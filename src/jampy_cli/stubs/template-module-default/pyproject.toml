@@ -13,3 +13,6 @@ dependencies = []
 [[project.authors]]
 name = "Sheldon Lee"
 email = "sheldonlee@outlook.com"
+
+[project.optional-dependencies]
+dev = []

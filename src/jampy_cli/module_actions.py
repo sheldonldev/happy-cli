@@ -30,10 +30,17 @@ def create_default_module(
             f'from .src import {name}\n\n__all__ = ["{name}"]\n'
         )
 
+    def modify_test():
+        shutil.move(
+            module_dir.joinpath('tests/test_main.py'),
+            module_dir.joinpath(f'tests/test_{name}.py'),
+        )
+
     template_dir = Config.STUBS_ROOT.joinpath('template-module-default')
     shutil.copytree(template_dir, module_dir)
     modify_toml()
     modify_init()
+    modify_test()
 
 
 app = typer.Typer()
