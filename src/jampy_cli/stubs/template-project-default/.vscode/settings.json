@@ -16,6 +16,9 @@
     "python.analysis.typeCheckingMode": "basic",
     "mypy.dmypyExecutable": "dmypy",
     "mypy.enabled": true,
+    "mypy.extraArguments": [
+        "--check-untyped-defs"
+    ],
     // sort and format
     "isort.check": true,
     "isort.args": [
