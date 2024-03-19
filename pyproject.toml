@@ -26,3 +26,6 @@ jam = "jampy_cli:app"
 
 [tool.setuptools]
 include-package-data = true
+
+[tool.sys-dependencies]
+apt = []

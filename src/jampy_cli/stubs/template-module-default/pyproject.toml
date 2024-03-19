@@ -16,3 +16,6 @@ email = "sheldonlee@outlook.com"
 
 [project.optional-dependencies]
 dev = []
+
+[tool.sys-dependencies]
+apt = []

@@ -1,5 +1,5 @@
 [build-system]
-requires = [ "setuptools",]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,7 +8,7 @@ version = "0.0.1"
 description = "..."
 readme = "README.md"
 requires-python = ">=3.12"
-classifiers = [ "Programming Language :: Python :: 3", "Operating System :: OS Independent",]
+classifiers = ["Programming Language :: Python :: 3", "Operating System :: OS Independent"]
 dependencies = []
 [[project.authors]]
 name = "Sheldon Lee"
@@ -18,7 +18,7 @@ email = "sheldonlee@outlook.com"
 file = "LICENSE"
 
 [project.optional-dependencies]
-dev = [ "build", "pytest", "mypy",]
+dev = ["build", "pytest", "mypy"]
 
 [project.scripts]
 run = "temp_project.main:main"
@@ -27,6 +27,9 @@ run = "temp_project.main:main"
 include-package-data = true
 
 [tool.setuptools.packages.find]
-where = [ "src",]
-include = [ "temp_project*",]
-exclude = [ "tests",]
+where = ["src"]
+include = ["temp_project*"]
+exclude = ["tests"]
+
+[tool.sys-dependencies]
+apt = []
