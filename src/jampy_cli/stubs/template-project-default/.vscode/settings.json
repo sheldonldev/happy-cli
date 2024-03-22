@@ -41,10 +41,11 @@
     "cSpell.minWordLength": 4,
     "cSpell.enabledLanguageIds": [
         "python",
+        "json",
         "markdown",
+        "toml",
         "plaintext",
         "yml",
-        "json"
     ],
     "cSpell.allowCompoundWords": true,
     "cSpell.ignoreWords": [],
