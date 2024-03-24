@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jampy_cli"
+version = "1.0.0"
+authors = [{ name = "Sheldon Lee", email = "sheldonlee@outlook.com" }]
+description = "Commonly used commands for myself."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.12"
+classifiers = ["Programming Language :: Python :: 3", "Operating System :: OS Independent"]
+dependencies = ["typer[all]", "rich", "prompt-toolkit", "toml", "inflection", "setuptools"]
+
+[project.optional-dependencies]
+dev = ["build", "pytest", "pytest-env", "mypy", "pre-commit", "types-toml"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["jampy_cli*"]
+exclude = ["tests"]
+
+[project.scripts]
+jam = "jampy_cli:app"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.sys-dependencies]
+apt = []
