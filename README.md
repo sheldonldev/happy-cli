@@ -18,6 +18,5 @@ bash install_dev.sh
 ## Build Package
 
 ```sh
-python -m pip install --upgrade build
 bash build.sh
 ```
