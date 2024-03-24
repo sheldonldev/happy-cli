@@ -12,7 +12,7 @@ jam -h
 ## Development
 
 ```sh
-bash install_local.sh
+bash install_dev.sh
 ```
 
 ## Build Package
