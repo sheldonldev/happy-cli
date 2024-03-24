@@ -18,24 +18,32 @@ def create_default_project(
     project_dir: Path,
 ) -> None:
     def modify_toml():
-        toml_str = project_dir.joinpath('pyproject.toml').read_text()
+        toml_str = project_dir.joinpath("pyproject.toml").read_text()
         toml_cfg = toml.loads(toml_str)
-        toml_cfg['project']['name'] = name
-        toml_cfg['project']['scripts'] = {'run': f'{name}.main:main'}
-        toml_cfg['tool']['setuptools']['packages']['find']['include'] = [
-            f'{name}*'
+        toml_cfg["project"]["name"] = name
+        toml_cfg["project"]["scripts"] = {"run": f"{name}.main:main"}
+        toml_cfg["tool"]["setuptools"]["packages"]["find"]["include"] = [
+            f"{name}*"
         ]
-        project_dir.joinpath('pyproject.toml').write_text(toml.dumps(toml_cfg))
+        project_dir.joinpath("pyproject.toml").write_text(toml.dumps(toml_cfg))
 
-    template_dir = Config.STUBS_ROOT.joinpath('template-project-default')
+    def modify_config():
+        cfg_str = project_dir.joinpath("src/name/_config.py").read_text()
+        cfg_lines = cfg_str.splitlines()
+        for i, line in enumerate(cfg_lines):
+            if line.startswith("APP_NAME"):
+                cfg_lines[i] = f'APP_NAME = "{name}"'
+
+    template_dir = Config.STUBS_ROOT.joinpath("template-project-default")
     shutil.copytree(template_dir, project_dir)
     modify_toml()
-    shutil.move(project_dir / 'src' / 'name', project_dir / 'src' / name)
+    modify_config()
+    shutil.move(project_dir / "src" / "name", project_dir / "src" / name)
 
 
 def update_vscode_settings(dst_path: Path):
-    template_dir = Config.STUBS_ROOT.joinpath('template-project-default')
-    src_path = template_dir.joinpath('.vscode/settings.json')
+    template_dir = Config.STUBS_ROOT.joinpath("template-project-default")
+    src_path = template_dir.joinpath(".vscode/settings.json")
 
     # backup th old
     shutil.copyfile(
@@ -50,16 +58,16 @@ def update_vscode_settings(dst_path: Path):
 app = typer.Typer()
 
 
-@app.command('c', help='Alias for create')
-@app.command('create')
+@app.command("c", help="Alias for create")
+@app.command("create")
 def create(
     project_path: Annotated[
         str,
-        typer.Option('--path', '-p', help='Path to project root.'),
+        typer.Option("--path", "-p", help="Path to project root."),
     ],
     project_type: Annotated[
         Optional[str],
-        typer.Option("--type", "-t", help='Type of project'),
+        typer.Option("--type", "-t", help="Type of project"),
     ] = None,
 ):
     """Create project."""
@@ -82,17 +90,17 @@ def create(
         Notifier.exited(print)
 
 
-@app.command('ss', help='Alias for sync-settings')
-@app.command('sync-settings')
+@app.command("ss", help="Alias for sync-settings")
+@app.command("sync-settings")
 def sync_settings(
     project_path: Annotated[
         Optional[str],
-        typer.Option('--path', '-p', help='Path to project root.'),
+        typer.Option("--path", "-p", help="Path to project root."),
     ] = None
 ):
     """Sync vscode settings to the latest template."""
     if project_path is None:
-        setting_path = '.vscode/settings.json'
+        setting_path = ".vscode/settings.json"
     else:
         name, project_dir = normalize_path(project_path)
         # TODO:

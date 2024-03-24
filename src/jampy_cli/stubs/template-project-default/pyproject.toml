@@ -18,7 +18,7 @@ email = "sheldonlee@outlook.com"
 file = "LICENSE"
 
 [project.optional-dependencies]
-dev = ["build", "pytest", "mypy"]
+dev = ["build", "pytest", "pytest-env", "mypy", "pre-commit"]
 
 [project.scripts]
 run = "temp_project.main:main"

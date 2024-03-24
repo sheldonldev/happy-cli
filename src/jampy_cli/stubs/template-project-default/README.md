@@ -3,7 +3,7 @@
 ## Development
 
 ```bash
-pip install -e ".[dev]"
+bash install_dev.sh
 ```
 
 ## Build Package
