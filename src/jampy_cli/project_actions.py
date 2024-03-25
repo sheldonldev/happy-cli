@@ -27,17 +27,33 @@ def create_default_project(
         ]
         project_dir.joinpath("pyproject.toml").write_text(toml.dumps(toml_cfg))
 
-    def modify_config():
-        cfg_str = project_dir.joinpath("src/name/_config.py").read_text()
-        cfg_lines = cfg_str.splitlines()
-        for i, line in enumerate(cfg_lines):
+    def modify_cfg():
+        code_str = project_dir.joinpath("src/name/_cfg.py").read_text()
+        code_lines = code_str.splitlines()
+        for i, line in enumerate(code_lines):
             if line.startswith("APP_NAME"):
-                cfg_lines[i] = f'APP_NAME = "{name}"'
+                code_lines[i] = f'APP_NAME = "{name}"'
+
+    def modify_cfg_test():
+        code_str = project_dir.joinpath("tests/test_cfg.py").read_text()
+        code_lines = code_str.splitlines()
+        for i, line in enumerate(code_lines):
+            if line.startswith("from temp_project"):
+                code_lines[i] = line.replace('temp_project', name)
+
+    def modify_log_test():
+        code_str = project_dir.joinpath("tests/test_log.py").read_text()
+        code_lines = code_str.splitlines()
+        for i, line in enumerate(code_lines):
+            if line.startswith("from temp_project"):
+                code_lines[i] = line.replace('temp_project', name)
 
     template_dir = Config.STUBS_ROOT.joinpath("template-project-default")
     shutil.copytree(template_dir, project_dir)
     modify_toml()
-    modify_config()
+    modify_cfg()
+    modify_cfg_test()
+    modify_log_test()
     shutil.move(project_dir / "src" / "name", project_dir / "src" / name)
 
 

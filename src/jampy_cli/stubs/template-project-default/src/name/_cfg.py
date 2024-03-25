@@ -1,6 +1,6 @@
 import importlib.metadata
 
-APP_NAME = "util_common"
+APP_NAME = "temp_project"
 __info__ = importlib.metadata.metadata(APP_NAME)
 
 VERSION = __info__.get("version")
