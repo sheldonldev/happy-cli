@@ -15,11 +15,11 @@ def init_account(
     user_name: Annotated[
         Optional[str],
         typer.Option("--user-name", "-un", help="GitHub user name."),
-    ],
+    ] = None,
     user_email: Annotated[
         Optional[str],
         typer.Option("--user-email", "-ue", help="GitHub user email."),
-    ],
+    ] = None,
 ):
     if user_name is None:
         if AUTHOR_NAME is None:
