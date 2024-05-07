@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "jampy_cli"
 version = "1.0.0"
-authors = [{ name = "Sheldon Lee", email = "sheldonlee@outlook.com" }]
+authors = [{ name = "sheldonldev", email = "xiadanli0320@gmail.com" }]
 description = "Commonly used commands for myself."
 readme = "README.md"
 license = { file = "LICENSE" }

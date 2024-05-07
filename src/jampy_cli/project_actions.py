@@ -5,11 +5,10 @@ from typing import Annotated, Optional
 import inflection
 import toml
 import typer
-from rich import print
 from util_common.datetime import format_now
 from util_common.path import get_absolute_cwd_path, normalize_path
 
-from .config import Config
+from ._cfg import STUBS_ROOT
 from .notifier import Notifier
 
 
@@ -54,7 +53,7 @@ def create_default_project(
     def modify_main_test():
         _replace_import(project_dir.joinpath("tests/test_main.py"))
 
-    template_dir = Config.STUBS_ROOT.joinpath("template-project-default")
+    template_dir = STUBS_ROOT.joinpath("template-project-default")
     shutil.copytree(template_dir, project_dir)
     shutil.move(project_dir / "src" / "name", project_dir / "src" / name)
     modify_toml()
@@ -65,12 +64,12 @@ def create_default_project(
 
 
 def create_swift_project(name: str, project_dir: Path):
-    template_dir = Config.STUBS_ROOT.joinpath("template-project-swift")
+    template_dir = STUBS_ROOT.joinpath("template-project-swift")
     shutil.copytree(template_dir, project_dir)
 
 
 def update_vscode_settings(dst_path: Path):
-    template_dir = Config.STUBS_ROOT.joinpath("template-project-default")
+    template_dir = STUBS_ROOT.joinpath("template-project-default")
     src_path = template_dir.joinpath(".vscode/settings.json")
 
     # backup th old
@@ -105,25 +104,25 @@ def create(
     )
 
     if project_dir.exists():
-        Notifier.exists(print, str(project_dir))
-        Notifier.exited(print)
+        Notifier.exists(str(project_dir))
+        Notifier.exited()
         return
 
     if project_type is None:
         create_default_project(name, project_dir)
-        Notifier.create_success(print, str(project_dir))
-        Notifier.exited(print)
+        Notifier.create_success(str(project_dir))
+        Notifier.exited()
     elif project_type == 'swift':
         if not project_dir.name.startswith('swift'):
             project_dir = project_dir.parent.joinpath(
                 f'swift_{project_dir.name}'
             )
         create_swift_project(name, project_dir)
-        Notifier.create_success(print, str(project_dir))
-        Notifier.exited(print)
+        Notifier.create_success(str(project_dir))
+        Notifier.exited()
     else:
         # TODO
-        Notifier.exited(print)
+        Notifier.exited()
 
 
 @app.command("ss", help="Alias for sync-settings")
@@ -143,9 +142,9 @@ def sync_settings(
         pass
     dst_path = get_absolute_cwd_path().joinpath(setting_path)
     if not dst_path.exists():
-        Notifier.not_exists(print, str(dst_path))
-        Notifier.exited(print)
+        Notifier.not_exists(str(dst_path))
+        Notifier.exited()
     else:
         update_vscode_settings(dst_path)
-        Notifier.update_success(print, str(dst_path))
-        Notifier.exited(print)
+        Notifier.update_success(str(dst_path))
+        Notifier.exited()

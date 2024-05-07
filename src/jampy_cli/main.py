@@ -6,7 +6,7 @@ from rich import print
 from typing_extensions import Annotated
 from util_common import package
 
-from . import module_actions, project_actions
+from . import git_actions, module_actions, project_actions
 
 __info__ = package.get_package_info('jampy_cli')
 
@@ -51,8 +51,15 @@ app.add_typer(
     name='project',
     help=gen_help('Project actions.'),
 )
+
 app.add_typer(
     module_actions.app,
     name='module',
     help=gen_help('Module actions.'),
+)
+
+app.add_typer(
+    git_actions.app,
+    name='git',
+    help=gen_help('Git actions.'),
 )

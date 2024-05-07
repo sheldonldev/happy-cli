@@ -5,10 +5,9 @@ from typing import Annotated, Optional
 import inflection
 import toml
 import typer
-from rich import print as print
 from util_common.path import normalize_path
 
-from .config import Config
+from ._cfg import STUBS_ROOT
 from .notifier import Notifier
 
 
@@ -36,7 +35,7 @@ def create_default_module(
             module_dir.joinpath(f'tests/test_{name}.py'),
         )
 
-    template_dir = Config.STUBS_ROOT.joinpath('template-module-default')
+    template_dir = STUBS_ROOT.joinpath('template-module-default')
     shutil.copytree(template_dir, module_dir)
     modify_toml()
     modify_init()
@@ -64,14 +63,14 @@ def create(
     )
 
     if module_dir.exists():
-        Notifier.exists(print, str(module_dir))
-        Notifier.exited(print)
+        Notifier.exists(str(module_dir))
+        Notifier.exited()
         return
 
     if module_type is None:
         create_default_module(name, module_dir)
-        Notifier.create_success(print, str(module_dir))
-        Notifier.exited(print)
+        Notifier.create_success(str(module_dir))
+        Notifier.exited()
     else:
         # TODO
-        Notifier.exited(print)
+        Notifier.exited()
