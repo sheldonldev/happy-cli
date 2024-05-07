@@ -1,5 +1,5 @@
 import subprocess
-from typing import Annotated
+from typing import Annotated, Optional
 
 import typer
 
@@ -13,11 +13,11 @@ app = typer.Typer()
 @app.command("init-account")
 def init_account(
     user_name: Annotated[
-        str,
+        Optional[str],
         typer.Option("--user-name", "-un", help="GitHub user name."),
     ],
     user_email: Annotated[
-        str,
+        Optional[str],
         typer.Option("--user-email", "-ue", help="GitHub user email."),
     ],
 ):
