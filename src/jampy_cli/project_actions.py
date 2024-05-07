@@ -64,6 +64,11 @@ def create_default_project(
     modify_main_test()
 
 
+def create_swift_project(name: str, project_dir: Path):
+    template_dir = Config.STUBS_ROOT.joinpath("template-project-swift")
+    shutil.copytree(template_dir, project_dir)
+
+
 def update_vscode_settings(dst_path: Path):
     template_dir = Config.STUBS_ROOT.joinpath("template-project-default")
     src_path = template_dir.joinpath(".vscode/settings.json")
@@ -106,6 +111,14 @@ def create(
 
     if project_type is None:
         create_default_project(name, project_dir)
+        Notifier.create_success(print, str(project_dir))
+        Notifier.exited(print)
+    elif project_type == 'swift':
+        if not project_dir.name.startswith('swift'):
+            project_dir = project_dir.parent.joinpath(
+                f'swift_{project_dir.name}'
+            )
+        create_swift_project(name, project_dir)
         Notifier.create_success(print, str(project_dir))
         Notifier.exited(print)
     else:
