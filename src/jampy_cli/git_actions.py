@@ -27,12 +27,14 @@ def init_account(
             Notifier.exited()
             return
         user_name = AUTHOR_NAME
+        Notifier.echo(user_name)
     if user_email is None:
         if AUTHOR_EMAIL is None:
             Notifier.not_exists('--user-email')
             Notifier.exited()
             return
         user_email = AUTHOR_EMAIL
+        Notifier.echo(user_email)
 
     subprocess.run(
         f'git config --global user.name {user_name}',

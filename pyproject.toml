@@ -9,7 +9,7 @@ authors = [{ name = "sheldonldev", email = "xiadanli0320@gmail.com" }]
 description = "Commonly used commands for myself."
 readme = "README.md"
 license = { file = "LICENSE" }
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 classifiers = ["Programming Language :: Python :: 3", "Operating System :: OS Independent"]
 dependencies = ["typer[all]", "rich", "prompt-toolkit", "toml", "inflection", "setuptools"]
 

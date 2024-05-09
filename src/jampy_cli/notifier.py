@@ -23,3 +23,7 @@ class Notifier:
     @staticmethod
     def update_success(message: str, notify_fn: Callable = print):
         notify_fn(f"{message} updated successfully!")
+
+    @staticmethod
+    def echo(message: str, notify_fn: Callable = print):
+        notify_fn(message)

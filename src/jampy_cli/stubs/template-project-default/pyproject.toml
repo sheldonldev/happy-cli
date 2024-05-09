@@ -11,8 +11,8 @@ requires-python = ">=3.12"
 classifiers = ["Programming Language :: Python :: 3", "Operating System :: OS Independent"]
 dependencies = ["rich"]
 [[project.authors]]
-name = "Sheldon Lee"
-email = "sheldonlee@outlook.com"
+name = "sheldonldev"
+email = "xiadanli0320@gmail.com"
 
 [project.license]
 file = "LICENSE"
