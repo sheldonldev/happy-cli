@@ -11,12 +11,13 @@ AUTHOR_NAME = None
 AUTHOR_EMAIL = None
 author_email = __info__.get('author_email')
 if isinstance(author_email, str) and len(author_email) > 0:
-    if len(author_email.split()) > 1:
-        author, email = author_email.split()[:2]
-        AUTHOR_NAME = author
-        AUTHOR_EMAIL = email.lstrip('<').rstrip('>')
+    if len(author_email.split('<')) > 1:
+        author, email = author_email.split('<')[:2]
+        AUTHOR_NAME = author.strip()
+        AUTHOR_EMAIL = email.rstrip('>').strip()
 
 STUBS_ROOT = Path(__file__).parent.joinpath('stubs')
 
 if __name__ == '__main__':
-    print(__info__)
+    print(AUTHOR_EMAIL)
+    print(AUTHOR_NAME)
