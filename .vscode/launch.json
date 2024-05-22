@@ -9,7 +9,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "${file}",
-            "console": "integratedTerminal",
+            "console": "internalConsole",
             "justMyCode": false
         },
         {
@@ -24,7 +24,7 @@
             "env": {
                 "PYTHONPATH": "${workspaceFolder}/src"
             },
-            "console": "integratedTerminal"
+            "console": "internalConsole"
         }
     ]
 }

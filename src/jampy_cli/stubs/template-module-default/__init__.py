@@ -1,3 +1,3 @@
-from .src import temp_module
+from .src.main import main as temp_module
 
 __all__ = ["temp_module"]

@@ -22,11 +22,8 @@ def create_default_module(
         module_dir.joinpath('pyproject.toml').write_text(toml.dumps(toml_cfg))
 
     def modify_init():
-        module_dir.joinpath('src/__init__.py').write_text(
-            f'from .main import main as {name}\n\n__all__ = ["{name}"]\n'
-        )
         module_dir.joinpath('__init__.py').write_text(
-            f'from .src import {name}\n\n__all__ = ["{name}"]\n'
+            f'from .src.main import main as {name}\n\n__all__ = ["{name}"]\n'
         )
 
     def modify_test():
