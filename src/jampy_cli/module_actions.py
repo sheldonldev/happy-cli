@@ -132,3 +132,5 @@ def move(
         return
 
     move_default_module(src_name, src_dir, dst_name, dst_dir)
+    Notifier.update_success(str(dst_dir))
+    Notifier.exited()
