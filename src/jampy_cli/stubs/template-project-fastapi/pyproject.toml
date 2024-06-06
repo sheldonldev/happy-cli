@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "temp_project"
+version = "0.0.1"
+description = "..."
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = ["Programming Language :: Python :: 3", "Operating System :: OS Independent"]
+dependencies = ["rich"]
+[[project.authors]]
+name = "sheldonldev"
+email = "xiadanli0320@gmail.com"
+
+[project.license]
+file = "LICENSE"
+
+[project.optional-dependencies]
+dev = ["build", "pytest", "pytest-env", "mypy", "pre-commit"]
+
+[project.scripts]
+run = "temp_project.main:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["temp_project*"]
+exclude = ["tests"]
+
+[tool.sys-dependencies]
+apt = []
