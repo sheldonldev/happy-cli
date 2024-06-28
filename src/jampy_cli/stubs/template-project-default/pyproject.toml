@@ -32,4 +32,4 @@ include = ["temp_project*"]
 exclude = ["tests"]
 
 [tool.sys-dependencies]
-apt = []
+pkgs = []

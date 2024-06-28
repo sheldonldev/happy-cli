@@ -18,4 +18,4 @@ email = "xiadanli0320@gmail.com"
 dev = []
 
 [tool.sys-dependencies]
-apt = []
+pkgs = []

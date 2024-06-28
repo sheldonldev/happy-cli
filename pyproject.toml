@@ -28,4 +28,4 @@ jam = "jampy_cli:app"
 include-package-data = true
 
 [tool.sys-dependencies]
-apt = []
+pkgs = []
