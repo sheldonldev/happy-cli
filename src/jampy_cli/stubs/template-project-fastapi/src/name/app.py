@@ -1,12 +1,8 @@
-import os
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from temp_project._cfg import RESOURCE_ROOT
+from temp_project import _cfg
 from temp_project._log import log
 from util_common.uuid import UUID
-
-os.environ["RESOURCE_ROOT"] = RESOURCE_ROOT
 
 
 class CustomFastAPI(FastAPI):
@@ -26,4 +22,9 @@ class CustomFastAPI(FastAPI):
         )
 
 
-app = CustomFastAPI()
+for name in dir(_cfg):
+    attr = getattr(_cfg, name)
+    if name.isupper() and not callable(attr):
+        print(f"{name}: {attr}")
+
+app = CustomFastAPI(docs_url=None, redoc_url=None)
