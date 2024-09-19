@@ -1,7 +1,21 @@
+import time
+
 import uvicorn
 from fastapi import Request
 from fastapi.responses import HTMLResponse
 from temp_project.app import app
+
+
+@app.middleware("http")
+async def add_process_time_header(request: Request, call_next):
+    start_time = time.perf_counter()
+    response = await call_next(request)
+    response.headers["X-Start-Time"] = str(start_time)
+    end_time = time.perf_counter()
+    response.headers["X-End-Time"] = str(end_time)
+    process_time = end_time - start_time
+    response.headers["X-Process-Time"] = str(process_time)
+    return response
 
 
 @app.get("/")

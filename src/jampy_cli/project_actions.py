@@ -77,12 +77,6 @@ def create_fastapi_project(
     def modify_server():
         _replace_import(project_dir.joinpath(f"src/{name}/server.py"), name)
 
-    def modify_cfg_test():
-        _replace_import(project_dir.joinpath("tests/test_cfg.py"), name)
-
-    def modify_log_test():
-        _replace_import(project_dir.joinpath("tests/test_log.py"), name)
-
     def modify_server_test():
         _replace_import(project_dir.joinpath("tests/test_server.py"), name)
 
@@ -94,8 +88,6 @@ def create_fastapi_project(
     modify_log(project_dir.joinpath(f"src/{name}/_log.py"), name)
     modify_app()
     modify_server()
-    modify_cfg_test()
-    modify_log_test()
     modify_server_test()
 
 
