@@ -12,6 +12,15 @@ from ._cfg import STUBS_ROOT
 from .notifier import Notifier
 
 
+def _replace_import(code_path: Path, project_name):
+    code_str = code_path.read_text()
+    code_lines = code_str.splitlines()
+    for i, line in enumerate(code_lines):
+        if line.startswith("from temp_project"):
+            code_lines[i] = line.replace('temp_project', project_name)
+    code_path.write_text('\n'.join(code_lines) + '\n')
+
+
 def modify_toml(toml_path, project_name):
     toml_str = toml_path.read_text()
     toml_cfg = toml.loads(toml_str)
@@ -30,13 +39,8 @@ def modify_cfg(code_path, project_name):
     code_path.write_text('\n'.join(code_lines) + '\n')
 
 
-def _replace_import(code_path: Path, project_name):
-    code_str = code_path.read_text()
-    code_lines = code_str.splitlines()
-    for i, line in enumerate(code_lines):
-        if line.startswith("from temp_project"):
-            code_lines[i] = line.replace('temp_project', project_name)
-    code_path.write_text('\n'.join(code_lines) + '\n')
+def modify_log(code_path, project_name):
+    _replace_import(code_path, project_name)
 
 
 def create_default_project(
@@ -70,6 +74,9 @@ def create_fastapi_project(
     def modify_app():
         _replace_import(project_dir.joinpath(f"src/{name}/app.py"), name)
 
+    def modify_server():
+        _replace_import(project_dir.joinpath(f"src/{name}/server.py"), name)
+
     def modify_cfg_test():
         _replace_import(project_dir.joinpath("tests/test_cfg.py"), name)
 
@@ -84,7 +91,9 @@ def create_fastapi_project(
     shutil.move(project_dir / "src" / "name", project_dir / "src" / name)
     modify_toml(project_dir.joinpath("pyproject.toml"), name)
     modify_cfg(project_dir.joinpath(f"src/{name}/_cfg.py"), name)
+    modify_log(project_dir.joinpath(f"src/{name}/_log.py"), name)
     modify_app()
+    modify_server()
     modify_cfg_test()
     modify_log_test()
     modify_server_test()
