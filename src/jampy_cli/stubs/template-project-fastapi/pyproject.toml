@@ -9,8 +9,7 @@ description = "..."
 readme = "README.md"
 requires-python = ">=3.12"
 classifiers = ["Programming Language :: Python :: 3", "Operating System :: OS Independent"]
-dependencies = ["rich"]
-dependencies = ["rich", "uvicorn", "fastapi",  "httpx"]
+dependencies = ["rich", "uvicorn", "fastapi", "httpx"]
 [[project.authors]]
 name = "sheldonldev"
 email = "xiadanli0320@gmail.com"
