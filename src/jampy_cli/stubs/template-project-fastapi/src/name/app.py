@@ -1,9 +1,9 @@
 from contextlib import asynccontextmanager
 
-from decompress_archive import _cfg
-from decompress_archive._log import log
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from temp_project import _cfg
+from temp_project._log import log
 from util_common.uuid import UUID
 
 
